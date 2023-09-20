@@ -10,7 +10,7 @@ pub use resolve::ResolveError;
 
 pub(crate) use resolve::Resolve;
 
-use crate::capability::{self, channel::Receiver, Operation, ProtoContext, QueuingExecutor};
+use crate::capability::{self, channel::Sender, channel::Receiver, Operation, ProtoContext, QueuingExecutor};
 use crate::{App, WithContext};
 
 /// The Crux core. Create an instance of this type with your effect type, and your app type as type parameters
@@ -30,6 +30,8 @@ where
     capabilities: A::Capabilities,
     requests: Receiver<Ef>,
     capability_events: Receiver<A::Event>,
+    capability_sender: Sender<A::Capabilities>,
+    capability_receiver: Receiver<A::Capabilities>,
     app: A,
 }
 
