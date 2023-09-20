@@ -50,6 +50,7 @@ where
     {
         let (request_sender, request_receiver) = capability::channel();
         let (event_sender, event_receiver) = capability::channel();
+        let (capability_sender, capability_receiver) = capability::channel();
         let (executor, spawner) = capability::executor_and_spawner();
         let capability_context = ProtoContext::new(request_sender, event_sender, spawner);
 
