@@ -10,7 +10,9 @@ pub use resolve::ResolveError;
 
 pub(crate) use resolve::Resolve;
 
-use crate::capability::{self, channel::Sender, channel::Receiver, Operation, ProtoContext, QueuingExecutor};
+// pub(crate) use crate::capability::{channel::Receiver, channel::Sender};
+pub(crate) use crate::capability::channel::Receiver;
+use crate::capability::{self, Operation, ProtoContext, QueuingExecutor};
 use crate::{App, WithContext};
 
 /// The Crux core. Create an instance of this type with your effect type, and your app type as type parameters
@@ -30,8 +32,8 @@ where
     capabilities: A::Capabilities,
     requests: Receiver<Ef>,
     capability_events: Receiver<A::Event>,
-    capability_sender: Sender<A::Capabilities>,
-    capability_receiver: Receiver<A::Capabilities>,
+    // capability_sender: Sender<()>,
+    // capability_receiver: Receiver<()>,
     app: A,
 }
 
@@ -52,7 +54,7 @@ where
     {
         let (request_sender, request_receiver) = capability::channel();
         let (event_sender, event_receiver) = capability::channel();
-        let (capability_sender, capability_receiver) = capability::channel();
+        // let (capability_sender, capability_receiver) = capability::channel();
         let (executor, spawner) = capability::executor_and_spawner();
         let capability_context = ProtoContext::new(request_sender, event_sender, spawner);
 
@@ -63,6 +65,8 @@ where
             capabilities: Capabilities::new_with_context(capability_context),
             requests: request_receiver,
             capability_events: event_receiver,
+            // capability_sender,
+            // capability_receiver,
         }
     }
 

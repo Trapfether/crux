@@ -577,6 +577,12 @@ where
     }
 }
 
+
+
+pub trait CapabilityChannels<T>: From<T> {
+    fn new() -> Self;
+}
+
 #[cfg(test)]
 mod tests {
     use serde::Serialize;

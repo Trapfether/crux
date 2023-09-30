@@ -159,7 +159,6 @@ pub mod typegen;
 
 mod capabilities;
 mod core;
-
 use serde::Serialize;
 
 pub use self::{
@@ -181,6 +180,7 @@ pub trait App: Default {
     /// Capabilities, typically a `struct`, lists the capabilities used by this application
     /// Typically, Capabilities should contain at least an instance of the built-in [`Render`](crate::render::Render) capability.
     type Capabilities;
+    // type CapabilityChannels;
 
     /// Update method defines the transition from one `model` state to another in response to an `event`.
     ///
